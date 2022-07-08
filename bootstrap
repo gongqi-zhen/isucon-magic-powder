@@ -26,6 +26,7 @@ bootstrap() {
 
 install_all() {
     install_alp
+    install_pt_query_digest
 }
 
 install_alp() {
@@ -37,6 +38,18 @@ install_alp() {
   rm alp_linux_amd64.zip
 
   success "install alp"
+}
+
+install_pt_query_digest() {
+  info 'Install pt-query-digest'
+  wget https://github.com/percona/percona-toolkit/archive/refs/tags/v3.3.1.tar.gz
+  tar zxvf v3.3.1.tar.gz
+  sudo mv ./percona-toolkit-3.3.1/bin/pt-query-digest /usr/bin/
+
+  rm v3.3.1.tar.gz
+  rm -rf percona-toolkit-3.3.1
+
+  success "install pt-query-digest"
 }
 
 
