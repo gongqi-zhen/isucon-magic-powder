@@ -52,5 +52,17 @@ install_pt_query_digest() {
   success "install pt-query-digest"
 }
 
+install_notify_slack() {
+  info 'Install notify_slack'
+  NOTIFY_SLACKDIR="/tmp/notify_slack"
+  mkdir ${NOTIFY_SLACKDIR}
+  cd ${NOTIFY_SLACKDIR}
+  wget https://github.com/catatsuy/notify_slack/releases/download/v0.4.13/notify_slack-linux-amd64.tar.gz
+  tar zxvf notify_slack-linux-amd64.tar.gz
+  sudo mv notify_slack /usr/bin/
+  rm -rf ${NOTIFY_SLACKDIR}
+  success "install notify_slack"
+
+}
 
 bootstrap
