@@ -20,8 +20,15 @@ $1
 }
 
 bootstrap() {
-    info "start install tools"
-    install_all
+  info "start install tools"
+  install_all
+
+  info "start git init"
+  git_init
+
+  info "start git config"
+  git_config
+
 }
 
 install_all() {
@@ -64,6 +71,33 @@ install_notify_slack() {
   rm -rf ${NOTIFY_SLACKDIR}
   success "install notify_slack"
 
+}
+
+
+git_init() {
+  git init
+  ssh-keygen && cat $HOME/.ssh/id_rsa.pub
+
+  printf "\e[34mCopy this SSH key (https://github.com/settings/ssh/new)\e[m\n"
+  while :
+  do
+    read -p "Added SSH key? (y/n)" input
+    if [ "$input" = "y" ]; then
+      echo "Continue to setup!"
+      break
+    elif [ "$input" = "n" ]; then
+      echo "Please Add SSH Key."
+    fi
+  done
+
+  ssh -T git@github.com
+}
+
+git_config() {
+  git config --global user.email "gongqi-zhen@gmail.com"
+  git config --global user.name "gongqi-zhen"
+
+  git config --global core.editor 'vim -c "set fenc=utf-8"'
 }
 
 bootstrap
