@@ -27,6 +27,7 @@ bootstrap() {
 install_all() {
     install_alp
     install_pt_query_digest
+    install_notify_slack
 }
 
 install_alp() {
