@@ -29,6 +29,9 @@ bootstrap() {
   info "start git config"
   git_config
 
+  info "download Makefile"
+  download_makefile
+
 }
 
 install_all() {
@@ -98,6 +101,10 @@ git_config() {
   git config --global user.name "gongqi-zhen"
 
   git config --global core.editor 'vim -c "set fenc=utf-8"'
+}
+
+download_makefile() {
+  curl -O https://raw.githubusercontent.com/gongqi-zhen/isucon-magic-powder/main/Makefile
 }
 
 bootstrap
