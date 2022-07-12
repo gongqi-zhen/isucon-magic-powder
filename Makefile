@@ -50,15 +50,15 @@ show_slow_config: ## mysqlのslowログ設定を確認するコマンド
 
 .PHONY: send_result
 send_result: ## slackにalpとslowの出力を送信する
-	@make alp  > tmp.txt && notify_slack -f tmp.txt --filename alp.md
-	@make slow > tmp.txt && notify_slack -f tmp.txt --filename slow_log.txt
+	@make alp  > tmp.txt && notify_slack tmp.txt -snippet -filename alp.md
+	@make slow > tmp.txt && notify_slack tmp.txt -snippet -filename slow_log.txt
 
 .PHONY: mysql
 mysql: ## mysql接続コマンド
 	mysql -h $(DB_HOST) -u $(DB_USER) -p$(DB_PASS) $(DB_NAME)
 
 pprof:
-	@go tool pprof -png -output pprof.png http://localhost:6060/debug/pprof/profile && notify_slack -f pprof.png --filename pprof.png
+	@go tool pprof -png -output pprof.png http://localhost:6060/debug/pprof/profile && notify_slack pprof.png -filename pprof.png
 
 .PHONY: application_build
 application_build: ## application build (wip)
