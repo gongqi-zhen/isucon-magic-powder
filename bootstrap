@@ -32,6 +32,9 @@ bootstrap() {
   info "download Makefile"
   download_makefile
 
+  info "download deploy script"
+  download_deploy_script
+
 }
 
 install_all() {
@@ -105,6 +108,14 @@ git_config() {
 
 download_makefile() {
   curl -O https://raw.githubusercontent.com/gongqi-zhen/isucon-magic-powder/main/Makefile
+}
+
+download_deploy_script() {
+  curl -O https://raw.githubusercontent.com/gongqi-zhen/isucon-magic-powder/main/deploy
+  chmod +x deploy
+
+  curl -O https://raw.githubusercontent.com/gongqi-zhen/isucon-magic-powder/main/deploy_from_local
+  chmod +x deploy_from_local
 }
 
 bootstrap
