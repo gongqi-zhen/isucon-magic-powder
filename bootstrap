@@ -35,6 +35,10 @@ bootstrap() {
   info "download deploy script"
   download_deploy_script
 
+  check
+
+  info "script Done!"
+
 }
 
 install_all() {
@@ -104,6 +108,41 @@ git_config() {
   git config --global user.name "gongqi-zhen"
 
   git config --global core.editor 'vim -c "set fenc=utf-8"'
+}
+
+check() {
+  big_info "install checking!"
+
+  COMMANDS=(alp pt-query-digest notify_slack)
+
+  for c in ${COMMANDS[@]}; do
+    checking $c
+  done
+
+  file_check
+}
+
+file_check() {
+  big_info "file checking!"
+
+  FILES=(bootstrap Makefile deploy deploy_from_local)
+
+  for f in ${FILES[@]}; do
+    if [ -e $f ]; then
+      success "$f exists"
+    else
+      error "$f not exists"
+    fi
+  done
+}
+
+checking() {
+  which $1 > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    success "$1"
+  else
+    error "$1"
+  fi
 }
 
 download_makefile() {
